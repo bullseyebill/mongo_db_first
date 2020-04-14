@@ -3,7 +3,7 @@ import os
 
 import env
 
-MONGODB_URI = os.environ.get("MONGODB_URI")
+MONGODB_URI = "mongodb+srv://bullseye:P00lly@myfirstcluster-3bgcq.mongodb.net/myTest?retryWrites=true&w=majority"
 
 DBS_NAME = "myTestDB"
 COLLECTION_NAME = "myFirstMDB"
