@@ -5,7 +5,7 @@ import env
 
 MONGODB_URI = os.environ.get("MONGO_URI")
 DBS_NAME = "myTestDB"
-COLLECTION_NAME = "myfirstMDB"
+COLLECTION_NAME = "myFirstMDB"
 
 def mongo_connect(url):
     try:
@@ -14,7 +14,6 @@ def mongo_connect(url):
         return conn
     except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB: %s") % e
-
 
 def get_record():
     print("")
@@ -88,5 +87,7 @@ def main_loop():
 
 conn = mongo_connect(MONGODB_URI)
 coll = conn[DBS_NAME][COLLECTION_NAME]
+print(conn)
+print(coll)
 
 main_loop()
