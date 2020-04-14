@@ -3,7 +3,8 @@ import os
 
 import env
 
-MONGODB_URI = os.environ.get("MONGO_URI")
+MONGODB_URI = os.environ.get("MONGODB_URI")
+
 DBS_NAME = "myTestDB"
 COLLECTION_NAME = "myFirstMDB"
 
@@ -15,7 +16,7 @@ def mongo_connect(url):
     except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB: %s") % e
 
-def get_record():
+def find_record():
     print("")
     first = input("Enter first name > ")
     last = input("Enter last name > ")
@@ -58,7 +59,7 @@ def add_record():
                occupation, 'nationality': nationality}
     
     try:
-        coll.insert(new_doc)
+        coll.insert_one(new_doc)
         print("")
         print("Document inserted")
     except:
