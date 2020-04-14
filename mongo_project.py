@@ -3,8 +3,7 @@ import os
 
 import env
 
-MONGODB_URI = "mongodb+srv://bullseye:P00lly@myfirstcluster-3bgcq.mongodb.net/myFirstMDB?retryWrites=true&w=majority"
-
+MONGODB_URI = os.getenv("MONGO_URI")
 DBS_NAME = "myTestDB"
 COLLECTION_NAME = "myFirstMDB"
 
@@ -16,7 +15,8 @@ def mongo_connect(url):
     except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB: %s") % e
 
-def find_record():
+
+def get_record():
     print("")
     first = input("Enter first name > ")
     last = input("Enter last name > ")
@@ -25,12 +25,12 @@ def find_record():
         doc = coll.find_one({'first': first.lower(), 'last': last.lower()})
     except:
         print("Error accessing the database")
-
+    
     if not doc:
         print("")
         print("Error! No results found.")
-
-        return doc                
+    
+    return doc
 
 
 def show_menu():
@@ -43,6 +43,7 @@ def show_menu():
 
     option = input("Enter option: ")
     return option
+
 
 def add_record():
     print("")
@@ -59,12 +60,61 @@ def add_record():
                occupation, 'nationality': nationality}
     
     try:
-        coll.insert_one(new_doc)
+        coll.insert(new_doc)
         print("")
         print("Document inserted")
     except:
         print("Error accessing the database")
-         
+
+def find_record():
+    doc = get_record()
+    if doc:
+        print("")
+        for k,v in doc.items():
+            if k != "_id":
+                print(k.capitalize() + ": " + v.capitalize())        
+
+
+def edit_record():
+    doc = get_record()
+    if doc:
+        update_doc = {}
+        print("")
+        for k, v in doc.items():
+            if k != "_id":
+                update_doc[k] = input(k.capitalize() + " [" + v + "] > ")
+
+                if update_doc[k] == "":
+                    update_doc[k] = v
+        
+        try:
+            coll.update_one(doc, {'$set': update_doc})
+            print("")
+            print("Document updated")
+        except:
+            print("Error accessing the database")
+
+
+def delete_record():
+
+    doc = get_record()
+
+    if doc:
+        print("")
+        for k, v in doc.items():
+            if k != "_id":
+                print(k.capitalize() + ": " + v.capitalize())
+        
+        print("")
+        confirmation = input("Is this the document you want to delete?\nY or N > ")
+        print("")
+
+        if confirmation.lower() == 'y':
+            try:
+                coll.remove(doc)
+                print("Document deleted!")
+            except:
+                print("Document not deleted")
 
 
 def main_loop():
@@ -88,6 +138,5 @@ def main_loop():
 
 conn = mongo_connect(MONGODB_URI)
 coll = conn[DBS_NAME][COLLECTION_NAME]
-
 
 main_loop()
