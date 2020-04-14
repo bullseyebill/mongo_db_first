@@ -5,7 +5,7 @@ import env
 
 MONGODB_URI = os.environ.get("MONGO_URI")
 DBS_NAME = "myTestDB"
-COLLECTION_NAME = "myFirstMDB"
+COLLECTION_NAME = "myfirstMDB"
 
 def mongo_connect(url):
     try:
@@ -54,16 +54,16 @@ def add_record():
     occupation = input("Enter occupation > ")
     nationality = input("Enter nationality > ")
 
-    new_doc = {'first': first.lower(), 'last': last.lower(), 'dob': dob, 'gender': gender, 'hair_colour': hair_colour,
-               'occupation': occupation, 'nationality': nationality}
-
+    new_doc = {'first': first.lower(), 'last': last.lower(), 'dob': dob,
+               'gender': gender, 'hair_colour': hair_colour, 'occupation':
+               occupation, 'nationality': nationality}
+    
     try:
-        coll.insert_one(new_doc)
+        coll.insert(new_doc)
         print("")
         print("Document inserted")
     except:
-        print("Error accessing the database")   
-
+        print("Error accessing the database")
          
 
 
@@ -73,11 +73,11 @@ def main_loop():
         if option == "1":
             add_record()
         elif option == "2":
-            print("You have selected option 2")
+            find_record()
         elif option == "3":
-            print("You have selected option 3")
+            edit_record()
         elif option == "4":
-            print("You have selected option 4")
+            delete_record()
         elif option == "5":
             conn.close()
             break
