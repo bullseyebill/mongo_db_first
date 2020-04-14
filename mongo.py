@@ -13,7 +13,7 @@ def mongo_connect(url):
     except pymongo.errors.ConnectionFailure as e:
         print("Could not connect to MongoDB: %s") % e
 
-conn = mongo_connect(MONGO_URI)
+conn = mongo_connect(MONGODB_URI)
 
 coll = conn[DBS_NAME][COLLECTION_NAME]
 
