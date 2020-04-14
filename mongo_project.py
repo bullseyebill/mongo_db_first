@@ -3,7 +3,7 @@ import os
 
 import env
 
-MONGODB_URI = "mongodb+srv://bullseye:P00lly@myfirstcluster-3bgcq.mongodb.net/myTest?retryWrites=true&w=majority"
+MONGODB_URI = "mongodb+srv://bullseye:P00lly@myfirstcluster-3bgcq.mongodb.net/myFirstMDB?retryWrites=true&w=majority"
 
 DBS_NAME = "myTestDB"
 COLLECTION_NAME = "myFirstMDB"
@@ -88,7 +88,6 @@ def main_loop():
 
 conn = mongo_connect(MONGODB_URI)
 coll = conn[DBS_NAME][COLLECTION_NAME]
-print(conn)
-print(coll)
+
 
 main_loop()
