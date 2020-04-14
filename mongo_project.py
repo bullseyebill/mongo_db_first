@@ -3,7 +3,6 @@ import os
 
 import env
 
-
 MONGODB_URI = os.environ.get("MONGO_URI")
 DBS_NAME = "mytestDB"
 COLLECTION_NAME = "myfirstMDB"
@@ -59,11 +58,13 @@ def add_record():
                'occupation': occupation, 'nationality': nationality}
 
     try:
-        coll.insert_many(new_doc)
+        coll.insert_one(new_doc)
         print("")
         print("Document inserted")
     except:
-        print("Error accessing the database")        
+        print("Error accessing the database")   
+
+         
 
 
 def main_loop():
